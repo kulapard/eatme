@@ -37,7 +37,8 @@ def pull_update(path, branch=None, clean=False):
         hg_update = hg_update['--clean']
 
     if branch:
-        hg_update = hg_update['--rev', branch]
+        # Кавычки нужны для полного отображения имени бранча в тексте ошибки
+        hg_update = hg_update['--rev', '\'%s\'' % branch]
 
     with colors.green:
         print(path)
@@ -79,10 +80,15 @@ def push(path, branch=None, new_branch=True):
     with colors.yellow:
         print(hg_push)
 
-    # Игнорируем ошибки:
-    # 0 - changesets found
-    # 1 - no changes found
-    print(hg_push(retcode=[0, 1]))
+    try:
+        # Игнорируем ошибки:
+        # 0 - changesets found
+        # 1 - no changes found
+        print(hg_push(retcode=[0, 1]))
+    except ProcessExecutionError as e:
+        # Остальные отлавливаем
+        with colors.red:
+            print(e.stderr)
 
 
 def status(path):

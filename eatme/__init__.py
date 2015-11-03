@@ -50,8 +50,6 @@ def pull_update(path, branch=None, clean=False):
     with colors.yellow:
         print(hg_update)
 
-    # Игнорируем ошибки:
-    # 255 - unknown revision
     try:
         print(hg_update(retcode=[0]))
     except ProcessExecutionError as e:
@@ -80,7 +78,7 @@ def push(path, branch=None, new_branch=True):
 
     # Игнорируем ошибки:
     # 1 - no changes found
-    print(hg_push(retcode=[1]))
+    print(hg_push(retcode=[0, 1]))
 
 
 def status(path):

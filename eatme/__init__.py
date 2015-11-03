@@ -9,7 +9,7 @@ from plumbum.commands.processes import ProcessExecutionError
 
 __author__ = 'Taras Drapalyuk <taras@drapalyuk.com>'
 __date__ = '02.11.2015'
-__version__ = '0.0.13'
+__version__ = '0.0.14'
 
 
 def get_repos(start_path='.'):

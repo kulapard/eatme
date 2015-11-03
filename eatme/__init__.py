@@ -4,6 +4,7 @@ import os
 from functools import partial
 
 from plumbum import local, colors, cli
+from plumbum.cli import SwitchAttr
 from plumbum.commands.processes import ProcessExecutionError
 
 __author__ = 'Taras Drapalyuk <taras@drapalyuk.com>'
@@ -101,7 +102,7 @@ def status(path):
 class EatMe(cli.Application):
     PROGNAME = 'eatme'
     VERSION = __version__
-    verbose = cli.Flag(["v", "verbose"], help="enable additional output")
+    verbose = cli.Flag(["-v", "--verbose"], help="enable additional output")
 
     def main(self, *args):
         if args:
@@ -114,12 +115,8 @@ class EatMe(cli.Application):
 
 @EatMe.subcommand("push")
 class Push(cli.Application):
-    new_branch = cli.Flag(["new-branch"], help="hg push --new-branch")
-    branch = None
-
-    @cli.switch(["-b", "--branch"], help="hg update --rev BRANCH")
-    def set_branch(self, branch):
-        self.branch = branch
+    new_branch = cli.Flag(["--new-branch"], help="hg push --new-branch")
+    branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
     def main(self):
         hg_push = partial(push, branch=self.branch, new_branch=self.new_branch)
@@ -128,12 +125,8 @@ class Push(cli.Application):
 
 @EatMe.subcommand("update")
 class Update(cli.Application):
-    clean = cli.Flag(["C", "clean"], help="hg update --clean")
-    branch = None
-
-    @cli.switch(["-b", "--branch"], help="hg update --rev BRANCH")
-    def set_branch(self, branch):
-        self.branch = branch
+    clean = cli.Flag(["-C", "--clean"], help="hg update --clean")
+    branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
     def main(self):
         hg_pull_update = partial(pull_update, branch=self.branch, clean=self.clean)

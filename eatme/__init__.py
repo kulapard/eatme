@@ -108,10 +108,16 @@ class EatMe(cli.Application):
 
     def main(self, *args):
         if args:
-            print "Unknown command %r" % (args[0],)
+            with colors.red:
+                print "Unknown command %r" % (args[0],)
+            print "=" * 20
+            self.help()
             return 1  # error exit code
         if not self.nested_command:  # will be ``None`` if no sub-command follows
-            print "No command given"
+            with colors.red:
+                print "No command given"
+            print "=" * 20
+            self.help()
             return 1  # error exit code
 
 

@@ -107,6 +107,22 @@ def status(path):
     print(hg_status())
 
 
+def branch(path):
+    """hg branch"""
+    hg = local['hg']
+    hg = hg['--repository', path]
+
+    hg_branch = hg['branch']
+
+    with colors.green:
+        print(path)
+
+    with colors.yellow:
+        print(hg_branch)
+
+    print(hg_branch())
+
+
 class EatMe(cli.Application):
     PROGNAME = 'eatme'
     VERSION = __version__
@@ -151,6 +167,12 @@ class Update(cli.Application):
 class Status(cli.Application):
     def main(self):
         run_for_all_repos(status)
+
+
+@EatMe.subcommand("branch")
+class Branch(cli.Application):
+    def main(self):
+        run_for_all_repos(branch)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ from plumbum.commands.processes import ProcessExecutionError
 
 __author__ = 'Taras Drapalyuk <taras@drapalyuk.com>'
 __date__ = '02.11.2015'
-__version__ = '0.0.14'
+__version__ = '0.0.15'
 
 
 def get_repos(start_path='.'):
@@ -51,8 +51,11 @@ def pull_update(path, branch=None, clean=False):
         print(hg_update)
 
     try:
+        # Игнорируем ошибки:
+        # 0 - changesets found
         print(hg_update(retcode=[0]))
     except ProcessExecutionError as e:
+        # Остальные отлавливаем
         with colors.red:
             print(e.stderr)
 
@@ -77,6 +80,7 @@ def push(path, branch=None, new_branch=True):
         print(hg_push)
 
     # Игнорируем ошибки:
+    # 0 - changesets found
     # 1 - no changes found
     print(hg_push(retcode=[0, 1]))
 

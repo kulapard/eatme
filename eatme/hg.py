@@ -23,7 +23,11 @@ def pull_update(path, branch=None, clean=False):
     with colors.yellow:
         print(hg_pull)
 
-    print(hg_pull())
+    try:
+        print(hg_pull())
+    except ProcessExecutionError as e:
+        with colors.red:
+            print(e.stderr)
 
     with colors.yellow:
         print(hg_update)
@@ -81,7 +85,11 @@ def status(path):
     with colors.yellow:
         print(hg_status)
 
-    print(hg_status())
+    try:
+        print(hg_status())
+    except ProcessExecutionError as e:
+        with colors.red:
+            print(e.stderr)
 
 
 def branch(path):
@@ -97,4 +105,8 @@ def branch(path):
     with colors.yellow:
         print(hg_branch)
 
-    print(hg_branch())
+    try:
+        print(hg_branch())
+    except ProcessExecutionError as e:
+        with colors.red:
+            print(e.stderr)

@@ -45,7 +45,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'eatme = eatme:EatMe.run',
+            'eatme = eatme.cli:EatMe.run',
         ],
     },
     install_requires=PACKAGE_INSTALL_REQUIRES,

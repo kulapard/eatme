@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from eatme import EatMe, run_for_all_repos
-from testfixtures import log_capture
+from eatme.cli import EatMe, run_for_all_repos
 
 
 class TestEatMe(unittest.TestCase):
-    @log_capture()
-    def test_run(self, l):
+    def test_run(self):
         self.assertTrue(callable(EatMe.run))
 
     def test_run_for_all_repos(self):
@@ -16,6 +14,7 @@ class TestEatMe(unittest.TestCase):
 
         self.assertTrue(callable(run_for_all_repos))
         self.assertIsNone(run_for_all_repos(func))
+
 
 if __name__ == '__main__':
     unittest.main()

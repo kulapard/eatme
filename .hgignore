@@ -6,5 +6,7 @@
 .egg-info/
 .coverage
 .tox/
+.cache/
 cover/
 dist/
+coverage.xml

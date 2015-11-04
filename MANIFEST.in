@@ -1,5 +1,5 @@
-  include *.rst
-  include *.txt
-  include pylintrc
-  include tox.ini
-  include Makefile
+include *.md
+include *.txt
+include pylintrc
+include tox.ini
+include Makefile

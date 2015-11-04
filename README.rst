@@ -1,6 +1,8 @@
 EatMe
 =====
 
+.. image:: https://drone.io/bitbucket.org/KulaPard/eatme/status.png
+
 Утилита для выполнения массовых операций с вложенными репозиториями.
 
 
@@ -41,4 +43,3 @@ EatMe
     tox -e check --skip-missing-interpreters --recreate
 
 .. _tox: https://pypi.python.org/pypi/tox
-

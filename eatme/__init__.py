@@ -8,7 +8,7 @@ from plumbum.cli import SwitchAttr
 from plumbum.commands.processes import ProcessExecutionError
 
 __author__ = 'Taras Drapalyuk <taras@drapalyuk.com>'
-__date__ = '02.11.2015'
+__date__ = '03.11.2015'
 __version__ = '0.0.15'
 
 
@@ -125,7 +125,7 @@ def branch(path):
 
 class EatMe(cli.Application):
     PROGNAME = 'eatme'
-    VERSION = __version__
+    VERSION = '%s (%s)' % (__version__, __date__)
     verbose = cli.Flag(["-v", "--verbose"], help="enable additional output")
 
     def main(self, *args):

@@ -19,8 +19,10 @@ this_dir = os.path.dirname(__file__)
 readme_filename = os.path.join(this_dir, 'README.rst')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
-with open(readme_filename) as f:
-    PACKAGE_LONG_DESCRIPTION = f.read()
+PACKAGE_LONG_DESCRIPTION = ''
+if os.path.exists(readme_filename):
+    with open(readme_filename) as f:
+        PACKAGE_LONG_DESCRIPTION = f.read()
 
 with open(requirements_filename) as f:
     # Игнорируем комментарии,

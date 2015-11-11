@@ -1,13 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-from functools import partial
+import time
+from functools import partial, wraps
 
 from plumbum import colors, cli
 from plumbum.cli import SwitchAttr
 
 from eatme import __version__, __date__
 from eatme import hg
+
+
+def print_time_spent(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        finish = time.time()
+        with colors.cyan:
+            print('Done in {} sec'.format(finish - start))
+        return result
+
+    return wrapper
 
 
 def get_repos(start_path='.'):
@@ -49,6 +63,7 @@ class Push(cli.Application):
     new_branch = cli.Flag(["--new-branch"], help="hg push --new-branch")
     branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
+    @print_time_spent
     def main(self):
         hg_push = partial(hg.push, branch=self.branch, new_branch=self.new_branch)
         run_for_all_repos(hg_push)
@@ -59,6 +74,7 @@ class Update(cli.Application):
     clean = cli.Flag(["-C", "--clean"], help="hg update --clean")
     branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
+    @print_time_spent
     def main(self):
         hg_pull_update = partial(hg.pull_update, branch=self.branch, clean=self.clean)
         run_for_all_repos(hg_pull_update)
@@ -66,11 +82,13 @@ class Update(cli.Application):
 
 @EatMe.subcommand("status")
 class Status(cli.Application):
+    @print_time_spent
     def main(self):
         run_for_all_repos(hg.status)
 
 
 @EatMe.subcommand("branch")
 class Branch(cli.Application):
+    @print_time_spent
     def main(self):
         run_for_all_repos(hg.branch)

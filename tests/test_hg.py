@@ -6,7 +6,7 @@ from eatme import hg
 
 
 class TestHG(unittest.TestCase):
-    TEST_REPO = 'https://bitbucket.org/pypy/pypy'
+    TEST_REPO = 'https://bitbucket.org/KulaPard/pretty-hg'
     TEST_PATH = '/tmp/test_eatme_hg'
 
     def setUp(self):

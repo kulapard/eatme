@@ -1,7 +1,7 @@
 # EatMe #
 
-[![Build Status](https://drone.io/bitbucket.org/KulaPard/eatme/status.png)](https://drone.io/bitbucket.org/KulaPard/eatme/latest)
-[![codecov.io](https://codecov.io/bitbucket/KulaPard/eatme/coverage.svg?branch=default)](https://codecov.io/bitbucket/KulaPard/eatme?branch=default)
+[![Build Status](https://drone.io/github.com/kulapard/eatme/status.png)](https://drone.io/github.com/kulapard/eatme/latest)
+[![codecov.io](https://codecov.io/github/kulapard/eatme/coverage.svg?branch=master)](https://codecov.io/github/kulapard/eatme?branch=master)
 
 Утилита для выполнения массовых операций с вложенными репозиториями
 (пока только Mercurial). 

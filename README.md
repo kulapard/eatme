@@ -4,7 +4,7 @@
 [![codecov.io](https://codecov.io/github/kulapard/eatme/coverage.svg?branch=master)](https://codecov.io/github/kulapard/eatme?branch=master)
 
 Утилита для выполнения массовых операций с вложенными репозиториями
-(пока только Mercurial). 
+(Mercurial, Git). 
 
 ## Установка ##
 ```

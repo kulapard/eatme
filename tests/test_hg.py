@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
 import unittest
+from datetime import datetime
 
 from plumbum import local
+
 from eatme import hg
+
+rm = local['rm']['-r']
+mkdir = local['mkdir']
+hg_clone = local['hg']['clone']
 
 
 class TestHG(unittest.TestCase):
     TEST_REPO = 'https://bitbucket.org/KulaPard/pretty-hg'
-    TEST_PATH = '/tmp/test_eatme_hg'
+    TEST_PATH = '/tmp/test_eatme_hg_%s' % datetime.now().strftime('%S')
 
     def setUp(self):
-        mkdir = local['mkdir']
-        hg_clone = local['hg']['clone'][self.TEST_REPO][self.TEST_PATH]
-        mk_test_path = mkdir[self.TEST_PATH]
-        mk_test_path(retcode=[0, 1])
-        hg_clone()
+        mkdir[self.TEST_PATH](retcode=[0, 1])
+        hg_clone[self.TEST_REPO][self.TEST_PATH]()
 
     def tearDown(self):
-        rm = local['rm']
-        rm_test_path = rm['-r', self.TEST_PATH]
-        rm_test_path()
+        rm[self.TEST_PATH]()
 
     def test_pull_update(self):
         self.assertIsNone(hg.pull_update(path=self.TEST_PATH))

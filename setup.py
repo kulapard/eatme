@@ -8,7 +8,8 @@ except ImportError:
     from distutils.core import setup
 import os
 
-with open('eatme/__init__.py', 'r') as fd:
+this_dir = os.path.dirname(__file__)
+with open(os.path.join(this_dir, 'eatme/__init__.py'), 'r') as fd:
     PACKAGE_VERSION = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                                 fd.read(), re.MULTILINE).group(1)
 
@@ -33,12 +34,12 @@ with open(requirements_filename) as f:
         ]
 
 setup(
-    name='EatMe',
+    name='eatme',
     version=PACKAGE_VERSION,
     author='Taras Drapalyuk',
     author_email='taras@drapalyuk.com',
     description='EatMe Utility',
-    url='https://bitbucket.org/KulaPard/eatme',
+    url='https://github.com/kulapard/eatme',
     long_description=PACKAGE_LONG_DESCRIPTION,
     packages=[
         'eatme',

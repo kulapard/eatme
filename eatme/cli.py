@@ -2,13 +2,38 @@
 # -*- coding: utf-8 -*-
 import os
 import time
-from functools import partial, wraps
+from collections import namedtuple
+from functools import wraps
 
 from plumbum import colors, cli
 from plumbum.cli import SwitchAttr
 
 from eatme import __version__, __date__
-from eatme import hg
+from eatme import hg, git
+
+VersionControlSystem = namedtuple('VersionControlSystem', ['GIT', 'HG'])
+VCS = VersionControlSystem(
+    GIT='GIT',
+    HG='HG',
+)
+
+COMMANDS = {
+    'pull_update': {
+        VCS.HG: hg.pull_update,
+        VCS.GIT: git.pull_update,
+    },
+    'push': {
+        VCS.HG: hg.push,
+        VCS.GIT: git.push,
+    },
+    'status': {
+        VCS.HG: hg.status,
+    },
+    'branch': {
+        VCS.HG: hg.branch,
+    }
+
+}
 
 
 def print_time_spent(func):
@@ -27,21 +52,26 @@ def print_time_spent(func):
 def get_repos(start_path='.'):
     for dir_path, subdir_list, file_list in os.walk(start_path):
         if '.hg' in subdir_list:
-            yield dir_path
+            yield VCS.HG, dir_path
+
+        if '.git' in subdir_list:
+            yield VCS.GIT, dir_path
 
         # Удаляем скрытые директории из списка, чтобы не проходить по ним
         subdir_list[:] = [d for d in subdir_list if not d[0] == '.']
 
 
-def run_for_all_repos(func, start_path='.'):
-    for repo_path in get_repos(start_path):
-        func(path=repo_path)
+def run_for_all_repos(command, options=None, start_path='.'):
+    options = options or {}
+    for vcs, repo_path in get_repos(start_path):
+        func = COMMANDS.get(command, {}).get(vcs)
+        if callable(func):
+            func(path=repo_path, **options)
 
 
 class EatMe(cli.Application):
     PROGNAME = 'eatme'
     VERSION = '%s (%s)' % (__version__, __date__)
-    verbose = cli.Flag(["-v", "--verbose"], help="enable additional output")
 
     def main(self, *args):
         if args:
@@ -64,9 +94,8 @@ class Push(cli.Application):
     branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
     @print_time_spent
-    def main(self):
-        hg_push = partial(hg.push, branch=self.branch, new_branch=self.new_branch)
-        run_for_all_repos(hg_push)
+    def main(self, *args):
+        run_for_all_repos('push', options=dict(branch=self.branch, new_branch=self.new_branch))
 
 
 @EatMe.subcommand("update")
@@ -75,20 +104,25 @@ class Update(cli.Application):
     branch = SwitchAttr(["-b", "--branch"], argtype=str, help="hg update --rev BRANCH")
 
     @print_time_spent
-    def main(self):
-        hg_pull_update = partial(hg.pull_update, branch=self.branch, clean=self.clean)
-        run_for_all_repos(hg_pull_update)
+    def main(self, *args):
+        branch = None
+        if self.branch:
+            branch = self.branch
+        elif args:
+            branch = args[0]
+
+        run_for_all_repos('pull_update', options=dict(branch=branch, clean=self.clean))
 
 
 @EatMe.subcommand("status")
 class Status(cli.Application):
     @print_time_spent
-    def main(self):
-        run_for_all_repos(hg.status)
+    def main(self, *args):
+        run_for_all_repos('status')
 
 
 @EatMe.subcommand("branch")
 class Branch(cli.Application):
     @print_time_spent
-    def main(self):
-        run_for_all_repos(hg.branch)
+    def main(self, *args):
+        run_for_all_repos('branch')

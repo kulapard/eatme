@@ -31,6 +31,7 @@ COMMANDS = {
     },
     'branch': {
         VCS.HG: hg.branch,
+        VCS.GIT: git.branch,
     }
 
 }

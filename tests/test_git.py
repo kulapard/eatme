@@ -41,6 +41,10 @@ class TestGIT(unittest.TestCase):
         self.assertIsNone(git.push(path=self.TEST_PATH, branch='some_branch', new_branch=True))
         self.assertIsNone(git.push(path='/fake_path'))
 
+    def test_branch(self):
+        self.assertIsNone(git.branch(path=self.TEST_PATH))
+        self.assertIsNone(git.branch(path='/fake_path'))
+
 
 if __name__ == '__main__':
     unittest.main()

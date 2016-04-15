@@ -4,10 +4,11 @@ import os
 from plumbum import local, colors
 from plumbum.commands.processes import ProcessExecutionError
 
+git = local['git']
+
 
 def pull_update(path, branch=None, *args, **kwargs):
     """git pull + git checkout"""
-    git = local['git']
     git_pull = git['pull']
     git_checkout = git['checkout']
 
@@ -48,7 +49,6 @@ def pull_update(path, branch=None, *args, **kwargs):
 
 def push(path, branch=None, *args, **kwargs):
     """git push"""
-    git = local['git']
     git_push = git['push', '--set-upstream', '--progress', 'origin']
 
     if not os.path.exists(path):
@@ -66,6 +66,27 @@ def push(path, branch=None, *args, **kwargs):
     try:
         with local.cwd(path):
             print(git_push())
+    except ProcessExecutionError as e:
+        with colors.red:
+            print(e.stderr)
+
+
+def branch(path):
+    """Show current Git branch"""
+    git_branch = git['rev-parse', '--abbrev-ref', 'HEAD']
+
+    if not os.path.exists(path):
+        return
+
+    with colors.green:
+        print(path)
+
+    with colors.yellow:
+        print(git_branch)
+
+    try:
+        with local.cwd(path):
+            print(git_branch())
     except ProcessExecutionError as e:
         with colors.red:
             print(e.stderr)

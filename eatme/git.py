@@ -16,7 +16,6 @@ def pull_update(path, branch=None, *args, **kwargs):
         return
 
     if branch:
-        git_pull = git_pull['origin', branch]
         git_checkout = git_checkout[branch]
 
     with colors.green:

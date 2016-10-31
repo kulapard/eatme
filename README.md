@@ -2,6 +2,7 @@
 
 [![Build Status](https://drone.io/github.com/kulapard/eatme/status.png)](https://drone.io/github.com/kulapard/eatme/latest)
 [![codecov.io](https://codecov.io/github/kulapard/eatme/coverage.svg?branch=master)](https://codecov.io/github/kulapard/eatme?branch=master)
+[![Updates](https://pyup.io/repos/github/kulapard/eatme/shield.svg)](https://pyup.io/repos/github/kulapard/eatme/)
 
 Утилита для выполнения массовых операций с вложенными репозиториями
 (Mercurial, Git). 

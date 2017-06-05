@@ -14,7 +14,7 @@ git_checkout = local['git']['checkout']
 
 
 class TestGIT(unittest.TestCase):
-    TEST_REPO = 'github.com:kulapard/eatme.git'
+    TEST_REPO = 'git@github.com:kulapard/eatme.git'
     TEST_COMMIT = '0044406292d7e583cedc4be2113d36b48ad4e207'
     TEST_PATH = '/tmp/test_eatme_git_%s' % datetime.now().strftime('%s')
 

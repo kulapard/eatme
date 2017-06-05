@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/kulapard/eatme.svg?branch=master)](https://travis-ci.org/kulapard/eatme)
 [![codecov.io](https://codecov.io/github/kulapard/eatme/coverage.svg?branch=master)](https://codecov.io/github/kulapard/eatme?branch=master)
 [![Updates](https://pyup.io/repos/github/kulapard/eatme/shield.svg)](https://pyup.io/repos/github/kulapard/eatme/)
+[![Python 3](https://pyup.io/repos/github/kulapard/eatme/python-3-shield.svg)](https://pyup.io/repos/github/kulapard/eatme/)
+
 
 Утилита для выполнения массовых операций с вложенными репозиториями
 (Mercurial, Git). 

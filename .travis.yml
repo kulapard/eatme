@@ -13,6 +13,7 @@ after_success:
   - codecov --token=$CODECOV_TOKEN
 before_install:
   - echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
+  - cat ~/.netrc
 notifications:
     email:
         recipients:

@@ -1,6 +1,6 @@
 # EatMe #
 
-[![Build Status](https://drone.io/github.com/kulapard/eatme/status.png)](https://drone.io/github.com/kulapard/eatme/latest)
+[![Build Status](https://travis-ci.org/kulapard/eatme.svg?branch=master)](https://travis-ci.org/kulapard/eatme)
 [![codecov.io](https://codecov.io/github/kulapard/eatme/coverage.svg?branch=master)](https://codecov.io/github/kulapard/eatme?branch=master)
 [![Updates](https://pyup.io/repos/github/kulapard/eatme/shield.svg)](https://pyup.io/repos/github/kulapard/eatme/)
 

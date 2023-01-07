@@ -1,2 +1,2 @@
-tox==2.7.0
+tox==4.2.6
 testfixtures==5.1.1

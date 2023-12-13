@@ -1,3 +1,9 @@
+### 📢 Notice: EatMe has been succeeded by [GoEatMe](https://github.com/kulapard/go-eatme)
+
+As of now, EatMe is no longer maintained.
+
+---
+
 # EatMe #
 
 [![Build Status](https://travis-ci.org/kulapard/eatme.svg?branch=master)](https://travis-ci.org/kulapard/eatme)
